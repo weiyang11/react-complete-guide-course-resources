@@ -1,4 +1,5 @@
 import React from 'react';
+import {createPortal } from 'react-dom';
 
 const ResultModal = React.forwardRef(function ResultModal({targetTime, remainingTime, onReset}, ref){
   const dialog = React.useRef();
@@ -14,8 +15,7 @@ const ResultModal = React.forwardRef(function ResultModal({targetTime, remaining
       }
     }
   });
-  return (
-
+  return createPortal(
     <dialog ref={dialog} className='result-modal' onClose={onReset}>
       {userLost && <h2>You lost</h2>}
       {!userLost && <h2>You Score: {score}</h2>}
@@ -24,7 +24,8 @@ const ResultModal = React.forwardRef(function ResultModal({targetTime, remaining
       <form method="dialog" >
         <button>Close</button>
       </form>
-    </dialog>
+    </dialog>,
+    document.getElementById('modals')
   );
 })
 
